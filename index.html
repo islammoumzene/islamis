@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>قصتنا</title>
+<style id="loginStyle">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  /* خلفية ليلية رومانسية (لا تحتاج إنترنت) */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  color: white;
+}
+#loginPage {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+#loginPage h2 {
+  margin-bottom: 25px;
+  color: #ffcc00;
+ font-size: 1.8rem;
+}
+.input-group {
+  margin-bottom: 20px;
+  text-align: right;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #ffeaa7;
+  font-size: 1rem;
+}
+.input-group input {
+  width: 100%;  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  direction: ltr;
+}
+#loginBtn {
+  width: 100%;
+  padding: 12px;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#loginBtn:hover {
+  background: #ff4757;
+}
+#message {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  min-height: 24px;
+}
+.success { color: #00d97e; }
+.error { color: #ff6b6b; }
+#storyPage { display: none; }
+</style>
+
+<style id="storyStyle" disabled>
+/* (نفس الأنماط الأصلية — لم أغيرها لعدم التأثير على المحتوى) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}h1 {
+  font-size: 2.4rem;
+  margin: 20px 0 20px;
+  color: #d63031;
+ : center;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.names {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e17055;
+}
+.cube-container {
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+  margin: 20px auto 40px;
+}
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 15s infinite linear;
+}
+.cube-face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border: 4px solid white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.front  { transform: rotateY(0deg) translateZ(100px); background-image: url('https://b.top4top.io/p_3685z3df41.jpg'); }
+.back   { transform: rotateY(180deg) translateZ(100px); background-image: url('https://d.top4top.io/p_3685xmutj1.jpg'); }
+.right  { transform: rotateY(90deg) translateZ(100px); background-image: url('https://e.top4top.io/p_3685gyq9z1.jpg'); }
+.left   { transform: rotateY(-90deg) translateZ(100px); background-image: url('https://c.top4top.io/p_3685tj2t51.jpg'); }
+.top    { transform: rotateX(90deg) translateZ(100px); background-image: url('https://g.top4top.io/p_36859vjgw1.jpg'); }
+.bottom { transform: rotateX(-90deg) translateZ(100px); background-image: url('her.jpg'); }
+@keyframes rotateCube {
+  from { transform: rotateX(0) rotateY(0); }
+  to   { transform: rotateX(360deg) rotateY(360deg); }}
+.timer-box {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  margin: 20px 0 40px;
+  text-align: center;
+  max-width: 550px;
+}
+.timer-box h2 {
+  margin-bottom: 15px;
+  color: #fd79a8;
+}
+.counters {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.counter-item {
+  background: #ffeaa7;
+  padding: 12px 16px;
+  border-radius: 12px;
+  min-width: 80px;
+}
+.counter-item span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #2d3436;
+}
+.counter-item p {
+  font-size: 0.9rem;
+  color: #636e72;
+}
+.question-section {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  margin: 20px 0;
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+}
+.question-section h3 {
+  margin-bottom: 15px;
+  color: #d63031;
+}.options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.option-btn {
+  padding: 10px 20px;
+  background: #ffeaa7;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.option-btn:hover {
+  background: #fab1a0;
+  transform: scale(1.05);
+}
+.result {
+  margin-top: 15px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #d63031;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 24px;
+  opacity: 0;
+  animation: floatUp 5s forwards;
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .names { flex-direction: column; align-items: center; gap: 15px; }
+  .options { flex-direction: column; align-items: center; }
+}
+</style>
+</head><body>
+
+<!-- صفحة الدخول -->
+<div id="loginPage">
+  <h2>مرحباً بك </h2>
+  <div class="input-group">
+    <label for="username">اسم المستخدم:</label>
+    <input type="text" id="username" placeholder="أدخل اسمك" autocomplete="off" />
+  </div>
+  <div class="input-group">
+    <label for="password">كلمة المرور:</label>
+    <input type="password" id="password" placeholder="••••••••" />
+  </div>
+  <button id="loginBtn" onclick="login()">دخول</button>
+  <div id="message"></div>
+</div>
+
+<!-- صفحة "قصتنا" -->
+<div id="storyPage">
+  <h1>قصتنا</h1>
+  <div class="names">
+    <div class="name" id="name1">islam</div>
+    <div class="name" id="name2">Khawla</div>
+  </div>
+  <div class="cube-container">
+    <div class="cube">
+      <div class="cube-face front"></div>
+      <div class="cube-face back"></div>
+      <div class="cube-face right"></div>
+      <div class="cube-face left"></div>
+      <div class="cube-face top"></div>
+      <div class="cube-face bottom"></div>
+    </div>
+  </div>
+  <div class="timer-box">
+    <h2>منذ أن إلتقيتك في تاريخ 31 ديسمبر 2025 مر علينا</h2>
+    <div class="counters">
+      <div class="counter-item"><span id="days">0</span><p>يوم</p></div>
+      <div class="counter-item"><span id="hours">0</span><p>ساعة</p></div>
+      <div class="counter-item"><span id="minutes">0</span><p>دقيقة</p></div>
+      <div class="counter-item"><span id="seconds">0</span><p>ثانية</p></div>
+    </div>
+  </div>
+  <div class="question-section">
+    <h3>شكون العاقل فينا 🙆🏻‍♂️</h3>
+    <div class="options">
+      <button class="option-btn" onclick="answer('love', 'islam')">islam</button>
+      <button class="option-btn" onclick="answer('love', 'khawla')">Khawla</button>
+    </div>
+    <div id="result-love" class="result"></div>  </div>
+  <div class="question-section">
+    <h3>شكون لي عندو نقاط بزاااف 😁🙄</h3>
+    <div class="options">
+      <button class="option-btn" onclick="answer('miss', 'islam')">islam</button>
+      <button class="option-btn" onclick="answer('miss', 'khawla')">khawla</button>
+    </div>
+    <div id="result-miss" class="result"></div>
+  </div>
+</div>
+
+<script>
+// === صفحة الدخول ===
+const correctUser = "islam";
+const correctPass = "khawla";
+
+function login() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value;
+  const msg = document.getElementById("message");
+  const btn = document.getElementById("loginBtn");
+
+  console.log("المدخلات:", { user, pass }); // للتحقق أثناء الاختبار
+
+  if (user === correctUser && pass === correctPass) {
+    msg.className = "success";
+    msg.textContent = "مرحباً بك في عالمنا✅️";
+    btn.disabled = true; // تعطيل الزر بعد النجاح
+    setTimeout(() => {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("storyPage").style.display = "block";
+      document.getElementById("loginStyle").disabled = true;
+      document.getElementById("storyStyle").disabled = false;
+    }, 2000);
+  } else {
+    msg.className = "error";
+    msg.textContent = "واش دخلك لعندنا 😒 حنا و مانش متفاهمين 🙂";
+    btn.disabled = false;
+  }
+}
+
+document.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") login();
+});
+
+// === المؤقت ===
+const startDate = new Date('2025-12-31T11:00:00');
+
+function updateTimer() {
+  const now = new Date();  const diff = now - startDate;
+  if (diff < 0) return;
+
+  const totalSec = Math.floor(diff / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hours = Math.floor((totalSec % 86400) / 3600);
+  const minutes = Math.floor((totalSec % 3600) / 60);
+  const seconds = totalSec % 60;
+
+  document.getElementById('days').textContent = days;
+  document.getElementById('hours').textContent = hours;
+  document.getElementById('minutes').textContent = minutes;
+  document.getElementById('seconds').textContent = seconds;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+// === الإجابات لكل سؤال ===
+const answers = {
+  love: {
+    islam: " صحيتي الفحلة بكلة ثقة 😌✅👏",
+    khawla: "مام انتي عاقلة يالفلوووووسة 👏"
+  },
+  miss: {
+    islam: "3🙂",
+    khawla: "3.5 بصح ديما نزيدلك "
+  }
+};
+
+function answer(questionType, choice) {
+  const resultText = answers[questionType][choice];
+  const resultId = `result-${questionType}`;
+  document.getElementById(resultId).textContent = resultText;
+  document.getElementById(resultId).style.opacity = '1';
+
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.innerHTML = '👏👏👏😍😍';
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, i * 250);
+  }
+}
+</script>
+  </body></html>
